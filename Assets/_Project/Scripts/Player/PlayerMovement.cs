@@ -14,36 +14,36 @@ namespace CoreBreach.Player
 
         private void Awake()
         {
-            controller = GetComponent<CharacterController>();
+            controller=GetComponent<CharacterController>();
         }
 
         private void Update()
         {
             Vector2 input = Vector2.zero;
-
+            //read basic WASD input
             if (Keyboard.current != null)
             {
-                if (Keyboard.current.wKey.isPressed) input.y += 1f;
-                if (Keyboard.current.sKey.isPressed) input.y -= 1f;
-                if (Keyboard.current.dKey.isPressed) input.x += 1f;
-                if (Keyboard.current.aKey.isPressed) input.x -= 1f;
+                if (Keyboard.current.wKey.isPressed) input.y +=1f;
+                if (Keyboard.current.sKey.isPressed) input.y -=1f;
+                if (Keyboard.current.dKey.isPressed) input.x +=1f;
+                if (Keyboard.current.aKey.isPressed) input.x -=1f;
             }
 
             Vector3 localMove = new Vector3(input.x, 0f, input.y);
-
-            if (localMove.sqrMagnitude > 1f)
+            //keep diagonal movement from becoming faster
+            if (localMove.sqrMagnitude >1f)
             {
                 localMove.Normalize();
             }
-
+            //move based on the player's facing direction
             Vector3 move = transform.TransformDirection(localMove);
-            move.y = 0f;
+            move.y =0f;
 
             controller.Move(move * moveSpeed * Time.deltaTime);
 
-            if (controller.isGrounded && verticalVelocity.y < 0f)
+            if (controller.isGrounded && verticalVelocity.y <0f)
             {
-                verticalVelocity.y = -2f;
+                verticalVelocity.y =-2f;
             }
 
             verticalVelocity.y += gravity * Time.deltaTime;
