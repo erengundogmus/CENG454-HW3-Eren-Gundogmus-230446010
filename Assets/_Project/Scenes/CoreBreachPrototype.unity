@@ -1490,6 +1490,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 439240, guid: 548a40efc092c6f408cc4d1691b171cc, type: 3}
   m_PrefabInstance: {fileID: 210185497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &218092718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 218092719}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &218092719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218092718}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.17, y: 1.1, z: 0.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 917495013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &236811905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5838,6 +5869,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Defender
       objectReference: {fileID: 0}
+    - target: {fileID: 193908, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 427246, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5892,6 +5927,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 427246, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1728807099}
+    - targetCorrespondingSourceObject: {fileID: 427246, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 218092719}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 193908, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
       insertIndex: -1
@@ -5902,6 +5940,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 193908, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 917495018}
+    - targetCorrespondingSourceObject: {fileID: 193908, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 917495020}
   m_SourcePrefab: {fileID: 100100000, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
 --- !u!4 &917495013 stripped
 Transform:
@@ -5945,7 +5986,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2.5
+  m_Height: 1.75
   m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -5966,6 +6007,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Player.PlayerAim
   mouseSensitivity: 0.02
   lockCursorOnStart: 1
+--- !u!114 &917495020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917495014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037fd33e76e7f394e9e15b4897904ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Player.PlayerShooter
+  projectilePrefab: {fileID: 585508204623870807, guid: 49f4cb318bc31604eb08d069d36ac225, type: 3}
+  firePoint: {fileID: 218092719}
+  fireRate: 0.25
 --- !u!1001 &960523070
 PrefabInstance:
   m_ObjectHideFlags: 0

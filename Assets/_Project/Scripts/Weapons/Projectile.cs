@@ -1,0 +1,51 @@
+using UnityEngine;
+
+namespace CoreBreach.Weapons
+{
+    public class Projectile : MonoBehaviour
+    {
+        [SerializeField] private float speed =18f;
+        [SerializeField] private float lifeTime =2f;
+
+        private Vector3 direction;
+        private float timer;
+
+        public void Launch(Vector3 launchDirection)
+        {
+            direction= launchDirection.normalized;
+            timer=0f;
+        }
+
+        private void Update()
+        {
+            float moveDistance = speed * Time.deltaTime;
+            //check the next movement step before moving
+            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, moveDistance))
+            {
+                if (!hit.collider.CompareTag("Player"))
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+            }
+
+            transform.position += direction * moveDistance;
+            //remove old projectiles
+            timer += Time.deltaTime;
+            if (timer >= lifeTime)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                return;
+            }
+
+            Destroy(gameObject);
+        }
+    }
+}
