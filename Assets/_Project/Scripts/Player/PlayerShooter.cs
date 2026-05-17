@@ -1,3 +1,4 @@
+using CoreBreach.Pooling;
 using CoreBreach.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,7 +7,7 @@ namespace CoreBreach.Player
 {
     public class PlayerShooter : MonoBehaviour
     {
-        [SerializeField] private Projectile projectilePrefab;
+        [SerializeField] private ProjectilePool projectilePool;
         [SerializeField] private Transform firePoint;
         [SerializeField] private float fireRate =0.25f;
 
@@ -18,23 +19,24 @@ namespace CoreBreach.Player
             {
                 return;
             }
+
             //fire while the left mouse button is held
             if (Mouse.current.leftButton.isPressed && Time.time >= nextFireTime)
             {
                 Shoot();
-                nextFireTime = Time.time + fireRate;
+                nextFireTime = Time.time+fireRate;
             }
         }
 
         private void Shoot()
         {
-            if (projectilePrefab== null || firePoint == null)
+            if (projectilePool == null || firePoint == null)
             {
                 return;
             }
-            //spawn the projectile from the fire point
-            Projectile projectile = Instantiate(
-                projectilePrefab,
+
+            //get projectile from the pool
+            Projectile projectile =projectilePool.GetProjectile(
                 firePoint.position,
                 Quaternion.LookRotation(firePoint.forward)
             );
