@@ -19,6 +19,11 @@ namespace CoreBreach.Weapons
             pool = projectilePool;
         }
 
+        public void SetDamage(float newDamage)
+        {
+            damage =newDamage;
+        }
+
         public void Launch(Vector3 launchDirection)
         {
             direction= launchDirection.normalized;

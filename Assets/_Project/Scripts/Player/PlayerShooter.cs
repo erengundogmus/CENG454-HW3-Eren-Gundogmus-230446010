@@ -8,6 +8,7 @@ namespace CoreBreach.Player
     public class PlayerShooter : MonoBehaviour
     {
         [SerializeField] private ProjectilePool projectilePool;
+        [SerializeField] private PlayerWeaponUpgrades weaponUpgrades;
         [SerializeField] private Transform firePoint;
         [SerializeField] private float fireRate =0.25f;
 
@@ -24,7 +25,7 @@ namespace CoreBreach.Player
             if (Mouse.current.leftButton.isPressed && Time.time >= nextFireTime)
             {
                 Shoot();
-                nextFireTime = Time.time+fireRate;
+                nextFireTime = Time.time+GetFireRate();
             }
         }
 
@@ -41,7 +42,22 @@ namespace CoreBreach.Player
                 Quaternion.LookRotation(firePoint.forward)
             );
 
+            if (weaponUpgrades != null)
+            {
+                projectile.SetDamage(weaponUpgrades.CurrentDamage);
+            }
+
             projectile.Launch(firePoint.forward);
+        }
+
+        private float GetFireRate()
+        {
+            if (weaponUpgrades != null)
+            {
+                return weaponUpgrades.CurrentFireRate;
+            }
+
+            return fireRate;
         }
     }
 }
