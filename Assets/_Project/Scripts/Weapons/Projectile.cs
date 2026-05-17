@@ -1,4 +1,5 @@
 using CoreBreach.Interfaces;
+using CoreBreach.Pooling;
 using UnityEngine;
 
 namespace CoreBreach.Weapons
@@ -11,6 +12,12 @@ namespace CoreBreach.Weapons
 
         private Vector3 direction;
         private float timer;
+        private ProjectilePool pool;
+
+        public void Initialize(ProjectilePool projectilePool)
+        {
+            pool = projectilePool;
+        }
 
         public void Launch(Vector3 launchDirection)
         {
@@ -20,24 +27,24 @@ namespace CoreBreach.Weapons
 
         private void Update()
         {
-            float moveDistance = speed * Time.deltaTime;
+            float moveDistance = speed*Time.deltaTime;
             //check the next movement step before moving
-            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, moveDistance))
+            if (Physics.Raycast(transform.position, direction, out RaycastHit hit,moveDistance))
             {
                 if (!hit.collider.CompareTag("Player"))
                 {
                     DealDamage(hit.collider);
-                    Destroy(gameObject);
+                    ReturnToPool();
                     return;
                 }
             }
 
-            transform.position += direction * moveDistance;
+            transform.position += direction*moveDistance;
             //remove old projectiles
             timer += Time.deltaTime;
             if (timer >= lifeTime)
             {
-                Destroy(gameObject);
+                ReturnToPool();
             }
         }
 
@@ -49,16 +56,29 @@ namespace CoreBreach.Weapons
             }
 
             DealDamage(other);
-            Destroy(gameObject);
+            ReturnToPool();
         }
 
         private void DealDamage(Collider targetCollider)
         {
-            IDamageable damageable = targetCollider.GetComponentInParent<IDamageable>();
+            
+            IDamageable damageable =targetCollider.GetComponentInParent<IDamageable>();
 
             if (damageable != null)
             {
                 damageable.TakeDamage(damage);
+            }
+        }
+
+        private void ReturnToPool()
+        {
+            if (pool != null)
+            {
+                pool.ReturnProjectile(this);
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
     }
