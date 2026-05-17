@@ -15,28 +15,25 @@ namespace CoreBreach.Enemies
 
         [SerializeField] private Transform target;
         [SerializeField] private MovementType movementType =MovementType.Direct;
-        [SerializeField] private float moveSpeed =3.5f;
-        [SerializeField] private float zigZagOffset =1.2f;
-        [SerializeField] private float zigZagForwardDistance =2.5f;
-        [SerializeField] private float zigZagSwitchTime =0.7f;
-        [SerializeField] private float repathInterval =0.2f;
+        [SerializeField] private float moveSpeed =2.8f;
+        [SerializeField] private float zigZagOffset =0.8f;
+        [SerializeField] private float zigZagForwardDistance =3f;
+        [SerializeField] private float repathInterval =0.25f;
 
         private NavMeshAgent agent;
         private IMovementStrategy movementStrategy;
         private float nextRepathTime;
-        private float nextZigZagTime;
-        private float zigZagSide =1f;
 
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             agent.speed = moveSpeed;
-            agent.acceleration =80f;
-            agent.angularSpeed =720f;
-            agent.stoppingDistance =0.2f;
+            agent.acceleration =18f;
+            agent.angularSpeed =480f;
+            agent.stoppingDistance =0.25f;
             agent.autoBraking =false;
             agent.updateRotation = true;
-            agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
 
             SetStrategy();
         }
@@ -48,35 +45,31 @@ namespace CoreBreach.Enemies
                 return;
             }
 
-            agent.speed = moveSpeed;
-
-            if (Time.time >= nextZigZagTime)
-            {
-                zigZagSide *= -1f;
-                nextZigZagTime = Time.time + zigZagSwitchTime;
-            }
+            agent.speed =moveSpeed;
 
             if (Time.time < nextRepathTime)
             {
                 return;
             }
 
-            nextRepathTime = Time.time + repathInterval;
+            nextRepathTime = Time.time+repathInterval;
 
             Vector3 destination = target.position;
 
-            //make zigzag enemy move to alternating side points
+            //make zigzag smoother with a small side movement
             if (movementType == MovementType.ZigZag)
             {
                 Vector3 direction = movementStrategy.GetDirection(transform, target);
                 Vector3 side = Vector3.Cross(Vector3.up, direction).normalized;
+                float wave = Mathf.Sin(Time.time * 1.4f);
 
-                destination = transform.position;
-                destination += direction * zigZagForwardDistance;
-                destination += side * zigZagSide * zigZagOffset;
+                destination =transform.position;
+                destination +=direction * zigZagForwardDistance;
+                destination +=side * wave * zigZagOffset;
             }
 
-            if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+            //keep the destination on the baked navmesh
+            if (NavMesh.SamplePosition(destination, out NavMeshHit hit,3f,NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
             }
@@ -84,7 +77,7 @@ namespace CoreBreach.Enemies
 
         public void SetTarget(Transform newTarget)
         {
-            target = newTarget;
+            target =newTarget;
             nextRepathTime =0f;
         }
 
