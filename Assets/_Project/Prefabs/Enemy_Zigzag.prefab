@@ -661,6 +661,8 @@ GameObject:
   - component: {fileID: 30446733281531294}
   - component: {fileID: 6176021535127421222}
   - component: {fileID: -2008707565494873769}
+  - component: {fileID: -497541330429258147}
+  - component: {fileID: -4261001330836193121}
   m_Layer: 0
   m_Name: Enemy_Zigzag
   m_TagString: Untagged
@@ -701,7 +703,7 @@ Animator:
   m_GameObject: {fileID: 2098698997632099760}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 535511bb156e7f54f83f305d96a1c4ce, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f177d72549cddd48aad42d447007b7a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -763,11 +765,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Enemies.EnemyMover
   target: {fileID: 0}
   movementType: 1
-  moveSpeed: 3.5
-  zigZagOffset: 1
-  zigZagForwardDistance: 2.5
-  zigZagSwitchTime: 0.7
-  repathInterval: 0.2
+  moveSpeed: 2.8
+  zigZagOffset: 0.8
+  zigZagForwardDistance: 3
+  repathInterval: 0.25
 --- !u!195 &6176021535127421222
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -806,6 +807,33 @@ MonoBehaviour:
   attackRange: 3
   damage: 10
   attackCooldown: 1
+--- !u!114 &-497541330429258147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098698997632099760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdb6071842a25b41baf23c212a66431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Enemies.EnemyAnimationController
+  animator: {fileID: 0}
+  agent: {fileID: 0}
+  movementThreshold: 0.1
+--- !u!114 &-4261001330836193121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098698997632099760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1262bbc75596ff84894e4037fd65b755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Core.AnimationEventReceiver
 --- !u!1 &2107779939043252932
 GameObject:
   m_ObjectHideFlags: 0
