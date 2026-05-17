@@ -1,3 +1,4 @@
+using System;
 using CoreBreach.Interfaces;
 using UnityEngine;
 
@@ -11,9 +12,14 @@ namespace CoreBreach.Enemies
         public float MaxHealth => maxHealth;
         public bool IsAlive => CurrentHealth > 0f;
 
+        public event Action<EnemyHealth> Died;
+
+        private bool deathNotified;
+
         private void Awake()
         {
             CurrentHealth=maxHealth;
+            deathNotified=false;
         }
 
         public void TakeDamage(float amount)
@@ -28,6 +34,7 @@ namespace CoreBreach.Enemies
             //remove enemy when health reaches zero
             if (CurrentHealth <= 0f)
             {
+                NotifyDeath();
                 Destroy(gameObject);
             }
         }
@@ -39,7 +46,18 @@ namespace CoreBreach.Enemies
                 return;
             }
 
-            CurrentHealth = Mathf.Min(CurrentHealth+ amount, MaxHealth);
+            CurrentHealth =Mathf.Min(CurrentHealth+ amount, MaxHealth);
+        }
+
+        private void NotifyDeath()
+        {
+            if (deathNotified)
+            {
+                return;
+            }
+
+            deathNotified=true;
+            Died?.Invoke(this);
         }
     }
 }

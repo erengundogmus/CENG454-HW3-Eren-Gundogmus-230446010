@@ -1,3 +1,4 @@
+using CoreBreach.Waves;
 using UnityEngine;
 
 namespace CoreBreach.Core
@@ -5,7 +6,9 @@ namespace CoreBreach.Core
     public class GameStateController : MonoBehaviour
     {
         [SerializeField] private CoreHealth coreHealth;
+        [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private GameObject losePanel;
+        [SerializeField] private GameObject winPanel;
 
         private bool gameEnded;
 
@@ -18,6 +21,11 @@ namespace CoreBreach.Core
             {
                 losePanel.SetActive(false);
             }
+
+            if (winPanel != null)
+            {
+                winPanel.SetActive(false);
+            }
         }
 
         private void OnEnable()
@@ -27,6 +35,11 @@ namespace CoreBreach.Core
             {
                 coreHealth.CoreDestroyed += HandleCoreDestroyed;
             }
+
+            if (enemySpawner != null)
+            {
+                enemySpawner.AllWavesCleared += HandleAllWavesCleared;
+            }
         }
 
         private void OnDisable()
@@ -35,6 +48,11 @@ namespace CoreBreach.Core
             if (coreHealth != null)
             {
                 coreHealth.CoreDestroyed -=HandleCoreDestroyed;
+            }
+
+            if (enemySpawner != null)
+            {
+                enemySpawner.AllWavesCleared -= HandleAllWavesCleared;
             }
         }
 
@@ -53,7 +71,30 @@ namespace CoreBreach.Core
                 losePanel.SetActive(true);
             }
 
-            //stop the game after lose
+            StopGame();
+        }
+
+        private void HandleAllWavesCleared()
+        {
+            if (gameEnded)
+            {
+                return;
+            }
+
+            gameEnded = true;
+
+            //show win screen
+            if (winPanel != null)
+            {
+                winPanel.SetActive(true);
+            }
+
+            StopGame();
+        }
+
+        private void StopGame()
+        {
+            //stop the game after win or lose
             Time.timeScale =0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible =true;
