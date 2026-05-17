@@ -1294,7 +1294,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1981860918171908, guid: c266c61b42ce56a4ca7e9190ef1209e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448991975}
+    - targetCorrespondingSourceObject: {fileID: 1981860918171908, guid: c266c61b42ce56a4ca7e9190ef1209e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448991974}
   m_SourcePrefab: {fileID: 100100000, guid: c266c61b42ce56a4ca7e9190ef1209e3, type: 3}
 --- !u!1001 &210085691
 PrefabInstance:
@@ -5347,6 +5353,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 469584, guid: 2216270888a4ced48b33b7b5641611e6, type: 3}
   m_PrefabInstance: {fileID: 794211356}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &802888178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 122154, guid: 3517d6179b17d7d41b2ab3881cb2cd67, type: 3}
+  m_PrefabInstance: {fileID: 2145173529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &802888179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802888178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3751ed3310a4d304f86addd85ad75a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Core.CoreHealth
+  maxHealth: 100
 --- !u!1001 &808671701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9290,6 +9314,47 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 499240, guid: ef77650fcc7dfd64a8d614922d90c382, type: 3}
   m_PrefabInstance: {fileID: 1448135741}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1448991973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1981860918171908, guid: c266c61b42ce56a4ca7e9190ef1209e3, type: 3}
+  m_PrefabInstance: {fileID: 204959511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1448991974
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448991973}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1448991975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448991973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4769ab19f7cc0043b961aaeb55b38a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoreBreach.Enemies.EnemyHealth
+  maxHealth: 30
 --- !u!1001 &1451445958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13422,6 +13487,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 122154, guid: 3517d6179b17d7d41b2ab3881cb2cd67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 802888179}
     - targetCorrespondingSourceObject: {fileID: 188734, guid: 3517d6179b17d7d41b2ab3881cb2cd67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2145173531}

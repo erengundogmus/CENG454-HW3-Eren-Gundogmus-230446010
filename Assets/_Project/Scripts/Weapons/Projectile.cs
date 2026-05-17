@@ -1,3 +1,4 @@
+using CoreBreach.Interfaces;
 using UnityEngine;
 
 namespace CoreBreach.Weapons
@@ -6,6 +7,7 @@ namespace CoreBreach.Weapons
     {
         [SerializeField] private float speed =18f;
         [SerializeField] private float lifeTime =2f;
+        [SerializeField] private float damage =10f;
 
         private Vector3 direction;
         private float timer;
@@ -24,6 +26,7 @@ namespace CoreBreach.Weapons
             {
                 if (!hit.collider.CompareTag("Player"))
                 {
+                    DealDamage(hit.collider);
                     Destroy(gameObject);
                     return;
                 }
@@ -45,7 +48,18 @@ namespace CoreBreach.Weapons
                 return;
             }
 
+            DealDamage(other);
             Destroy(gameObject);
+        }
+
+        private void DealDamage(Collider targetCollider)
+        {
+            IDamageable damageable = targetCollider.GetComponentInParent<IDamageable>();
+
+            if (damageable != null)
+            {
+                damageable.TakeDamage(damage);
+            }
         }
     }
 }
