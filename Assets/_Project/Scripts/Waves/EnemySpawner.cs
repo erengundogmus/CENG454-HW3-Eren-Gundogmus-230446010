@@ -71,6 +71,13 @@ namespace CoreBreach.Waves
             {
                 mover.SetTarget(coreTarget);
             }
+
+            EnemyCoreAttacker attacker = enemy.GetComponent<EnemyCoreAttacker>();
+            if (attacker != null)
+            {
+                attacker.SetTarget(coreTarget);
+            }
+
         }
     }
 }
